@@ -45,6 +45,6 @@ console.log(desarrolladorJS);
 
 const nombreProyectos = datos.map(dato => dato.proyectos.map(proyecto => proyecto.nombre));
 
-console.log(nombreProyectos.join(',').split());
+console.log(nombreProyectos.join(',').split(','));
 
 //['Proyecto 1', 'Proyecto 2', 'Proyecto 3', 'Proyecto 4', 'Proyecto 5', 'Proyecto 6']

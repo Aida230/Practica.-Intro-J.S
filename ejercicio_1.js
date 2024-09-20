@@ -29,4 +29,4 @@ const objetoUsuario = {
     busquedaActiva: true
 }
 
-console.log(objetoUsuario);
+console.log(objetoUsuario.temario[2].fechaInicio);
