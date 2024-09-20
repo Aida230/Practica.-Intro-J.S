@@ -46,7 +46,9 @@ const musicCatalog = () => {
    * Removes a playlist from the catalog.
    * @param {string} playlistName - The name of the playlist to remove.
    */
-    const removePlaylist = (playlistName) => {};
+    const removePlaylist = (playlistName) => {
+      playlists = playlists.filter(playlist => playlist.name !== playlistName);  
+    };
 
   /**
    * Adds a song to a specific playlist.
@@ -54,7 +56,20 @@ const musicCatalog = () => {
    * @param {{ title: string, artist: string, genre: string, duration: number }} song - The song to add to the playlist.
    * @throws {Error} If the playlist is not found.
    */
-  const addSongToPlaylist = (playlistName, song) => {};
+  const addSongToPlaylist = (playlistName, song) => {
+    const newSong = [];
+    const newPlaylist = playlists.find(playlist => playlist.name === playlistName);
+    if (!newPlaylist) {
+      throw new Error('The playlist is not found');
+    };
+    newPlaylist.songs.push({
+      title: song.title,
+      artist: song.artist,
+      genre: song.genre,
+      duration: song.duration,
+    });
+    console.log('playlist nueva', newPlaylist)
+  };
 
   /**
    * Removes a song from a specific playlist.
@@ -62,7 +77,10 @@ const musicCatalog = () => {
    * @param {string} title - The title of the song to remove.
    * @throws {Error} If the playlist or song is not found.
    */
-  const removeSongFromPlaylist = (playlistName, title) => {};
+  const removeSongFromPlaylist = (playlistName, title) => {
+    const removeFromPlayist = playlists.find(playlist => playlist.name === playlistName);
+  };
+  
 
   /**
    * Marks a song as a favorite or removes the favorite status.
