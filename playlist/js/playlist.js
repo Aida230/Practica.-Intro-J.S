@@ -57,20 +57,26 @@ const musicCatalog = () => {
    * @throws {Error} If the playlist is not found.
    */
   const addSongToPlaylist = (playlistName, song) => {
-    const newSong = [];
-    const newPlaylist = playlists.find(playlist => playlist.name === playlistName);
-    if (!newPlaylist) {
+    const toPlaylist = playlists.find(playlist => playlist.name === playlistName);
+    console.log(toPlaylist)
+    if (!toPlaylist) {
       throw new Error('The playlist is not found');
     };
-    newPlaylist.songs.push({
-      title: song.title,
-      artist: song.artist,
-      genre: song.genre,
-      duration: song.duration,
-    });
-    console.log('playlist nueva', newPlaylist)
+    playlists = playlists.map(playlistItem => {
+      if (playlistItem.name === playlistName) {
+        const newSongs = [...playlistItem.songs, {
+          title: song.title,
+          artist: song.artist,
+          genre: song.genre,
+          duration: song.duration,
+          favorite: false
+        }]
+        return {...playlistItem, songs: newSongs}
+      }
+    })
   };
-
+  
+  
   /**
    * Removes a song from a specific playlist.
    * @param {string} playlistName - The name of the playlist to remove the song from.
