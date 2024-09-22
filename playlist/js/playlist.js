@@ -84,21 +84,28 @@ const musicCatalog = () => {
    * @throws {Error} If the playlist or song is not found.
    */
   const removeSongFromPlaylist = (playlistName, title) => {
-    const removeFromPlaylist = playlists.find(playlist =>{
-      return (playlist.name === playlistName);
-    });
-    let removeSong = [];
-    if(removeFromPlaylist){
-       removeSong = removeFromPlaylist.songs.find(song => song.title === title);
+    const fromPlaylist = playlists.find(playlist => playlist.name === playlistName);
+    
+    if (!fromPlaylist) {
+      throw new Error('The playlist is not found');
     };
-    if (removeSong){
-      removeFromPlaylist.songs = removeFromPlaylist.songs.filter(song => song.title !== title);
-      //console.log("Cancion eliminada, nuevo array", playlists);
-    }
-    else {
-      throw new Error(`'no existe la cancion ${title} en la playlist ${playlistName}`);
-   }
+  
+    playlists = playlists.map(playlistItem => {
+      if (playlistItem.name === playlistName) {
+        const newSongs = playlistItem.songs.filter(song => song.title !== title);
+        
+        // Si no hay cambios, significa que la canción no existe en la playlist
+        if (newSongs.length === playlistItem.songs.length) {
+          throw new Error(`The song "${title}" is not found in the playlist "${playlistName}"`);
+        }
+        
+        return { ...playlistItem, songs: newSongs };
+      }
+  
+      return playlistItem;
+    });
   };
+
   /**
    * Marks a song as a favorite or removes the favorite status.
    * @param {string} playlistName - The name of the playlist containing the song.
